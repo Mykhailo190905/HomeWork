@@ -1,91 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Image Display</title>
+    <title>Кнопки</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto;
+        body {
+            font-family: Arial, sans-serif;
             text-align: center;
+            margin-top: 50px;
         }
-        th, td {
-            border: 1px solid #000;
-            padding: 8px;
-        }
-        th {
-            background-color: #f4f4f4;
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Random Image</h1>
-    <div id="image-container">
-        <img id="random-image" src="" alt="Random Image" style="max-width: 100%; height: auto;">
-    </div>
-    <div>
-        <button>Click</button>
-    </div>
-    <h1 style="text-align: center;">Таблица</h1>
-    <div id="pifagor-table"></div>
+    <h1>Введите ссылку и перейдите на нее</h1>
+    <button id="inputLinkButton">Ввести ссылку</button>
+    <button id="redirectButton" disabled>Перейти по ссылке</button>
+
     <script>
-        
-        const images = ['photo-1.jpg', 'photo-2.jpg', 'photo-3.jpg', 'photo-4.jpg'];
+        let userLink = ''; 
 
-
-        const randomIndex = Math.floor(Math.random() * images.length);
-
-        const randomImage = images[randomIndex];
-
-        const imgElement = document.getElementById('random-image');
-        imgElement.src = `images/${randomImage}`; 
-
-        imgElement.alt = `Random Image: ${randomImage}`;
-
-        document.querySelector('button').onclick = function() {
- 
-  if (this.style.background === "red") {
-    this.style.background = "";
-  } else {
-    this.style.background = "red";
-  }
-};
-    </script>
-    <script>
-        function createPifagorTable(size) {
-            const container = document.getElementById('pifagor-table');
-
-            const table = document.createElement('table');
-
-            for (let i = 0; i <= size; i++) {
-                const row = document.createElement('tr');
-
-                for (let j = 0; j <= size; j++) {
-                    const cell = i === 0 || j === 0 ? document.createElement('th') : document.createElement('td');
-
-                    if (i === 0 && j === 0) {
-                        cell.textContent = '';
-                    } else if (i === 0) {
-                        cell.textContent = j;
-                    } else if (j === 0) {
-                        cell.textContent = i;
-                    } else {
-                        cell.textContent = i * j;
-                    }
-
-                    row.appendChild(cell);
+        document.getElementById('inputLinkButton').addEventListener('click', function() {
+            const link = prompt('Введите ссылку (с http/https):');
+            if (link) {
+                try {
+                    const url = new URL(link);
+                    userLink = url.href;
+                    alert('Ссылка сохранена!');
+                    document.getElementById('redirectButton').disabled = false; 
+                } catch (e) {
+                    alert('Некорректная ссылка. Попробуйте снова.');
                 }
-
-                table.appendChild(row);
             }
+        });
 
-            container.appendChild(table);
-        }
-        createPifagorTable(10);
+        document.getElementById('redirectButton').addEventListener('click', function() {
+            if (userLink) {
+                window.location.href = userLink; 
+            } else {
+                alert('Сначала введите ссылку!');
+            }
+        });
     </script>
-    
 </body>
 </html>
