@@ -19,34 +19,5 @@
     </style>
 </head>
 <body>
-    <h1>Введите ссылку и перейдите на нее</h1>
-    <button id="inputLinkButton">Ввести ссылку</button>
-    <button id="redirectButton" disabled>Перейти по ссылке</button>
-
-    <script>
-        let userLink = ''; 
-
-        document.getElementById('inputLinkButton').addEventListener('click', function() {
-            const link = prompt('Введите ссылку (с http/https):');
-            if (link) {
-                try {
-                    const url = new URL(link);
-                    userLink = url.href;
-                    alert('Ссылка сохранена!');
-                    document.getElementById('redirectButton').disabled = false; 
-                } catch (e) {
-                    alert('Некорректная ссылка. Попробуйте снова.');
-                }
-            }
-        });
-
-        document.getElementById('redirectButton').addEventListener('click', function() {
-            if (userLink) {
-                window.location.href = userLink; 
-            } else {
-                alert('Сначала введите ссылку!');
-            }
-        });
-    </script>
 </body>
 </html>
