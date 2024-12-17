@@ -1,23 +1,55 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кнопки</title>
+    <title>Таймер</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
         }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-            cursor: pointer;
+        h1 {
+            font-size: 3rem;
+        }
+        #timer {
+            font-size: 2.5rem;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <h1>Таймер</h1>
+    <div id="timer">01:27</div>
+
+    <script>
+        let timeInSeconds = 87; 
+
+        const timerDisplay = document.getElementById('timer');
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+        }
+
+        function startCountdown() {
+            const timerInterval = setInterval(() => {
+                timerDisplay.textContent = formatTime(timeInSeconds);
+
+               
+                if (timeInSeconds === 0) {
+                    clearInterval(timerInterval); 
+                    alert('Время вышло!');
+                } else {
+                    timeInSeconds -= 1;
+                }
+            }, 1000); 
+        }
+
+   
+        startCountdown();
+    </script>
 </body>
 </html>
